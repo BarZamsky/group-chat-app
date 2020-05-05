@@ -7,7 +7,7 @@ const routes = require('./api/routes');
 const cors = require('cors');
 const passport = require('passport');
 const config = require('./config');
-require('./config/passport')(passport);
+// require('./config/passport')(passport);
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/group-chat';
 mongoose.connect(MONGODB_URI);
