@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Gilroy-Regular';
+  font-style: normal;
+  font-weight: 300;
+  font-display: auto;
+  src: local('Gilroy-Regular');
+  src: url('./assets/fonts/Gilroy-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Gilroy-Bold';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+  src: local('Gilroy-Bold');
+  src: url('./assets/fonts/Gilroy-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Gilroy-SemiBold';
+  font-style: normal;
+  font-display: auto;
+  src: local('Gilroy-Semibold');
+  src: url('./assets/fonts/Gilroy-Semibold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-display: auto;
+  src: local('Gilroy-Semibold');
+  src: url('./assets/fonts/roboto.woff') format('woff');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto' ;
+}

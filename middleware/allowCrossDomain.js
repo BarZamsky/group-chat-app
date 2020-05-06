@@ -11,4 +11,4 @@ function allowCrossDomain(req, res, next) {
     }
 }
 
-module.exports = allowCrossDomain
+module.exports = allowCrossDomain;

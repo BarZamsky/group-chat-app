@@ -1,6 +1,8 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const SALT = 10;
 const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
 
 const AvatarSchema = new mongoose.Schema({
     imageName: {
@@ -14,7 +16,11 @@ const AvatarSchema = new mongoose.Schema({
     }
 });
 
-const UserSchema = mongoose.Schema({
+const UserSchema = new Schema({
+    displayName: {
+        type: String,
+        required: false,
+    },
     username: {
         type: String,
         unique: true,
@@ -27,7 +33,7 @@ const UserSchema = mongoose.Schema({
     channels: [
         {
             type: String,
-        },
+        }
     ],
     avatar: AvatarSchema,
     online: {
@@ -41,29 +47,34 @@ UserSchema.pre('save', function (next) {
     next()
 });
 
-UserSchema.methods.toJSON = function () {
-    const User = this;
-    return User.toObject();
+UserSchema.methods.generateHash = function (password) {
+    const salt = bcrypt.genSaltSync(SALT);
+    return bcrypt.hashSync(password, salt);
 };
 
-UserSchema.methods.generateHash = function generateHash (password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(SALT))
-};
-
-UserSchema.methods.validatePassword = function isValidPassword (password) {
+UserSchema.methods.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.password)
 };
 
+UserSchema.methods.setDisplayName = function (displayName) {
+    const user = this;
+    user.displayName = displayName;
+    return user.save()
+        .then(() => {return user._doc})
+};
+
 UserSchema.methods.setAvatar = function (imageName, path) {
-    const profile = this;
-    profile.avatar = {
+    const user = this;
+    user.avatar = {
         imageName:imageName,
         imageData:path
     };
-    return profile.save()
+    return user.save()
         .then(() => {
-            return profile._doc;
+            return user._doc;
         });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
+
+module.exports = {User};
