@@ -1,0 +1,28 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paper {
+  height: auto;
+  width: auto;
+  background-color: #F8FBFF;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 12px;
+  .clear-icon {
+    text-align: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    .MuiSvgIcon-root {
+      fill: #C0C0C0;
+      &:hover {
+        fill: #232f3e;
+      }
+    }
+  }
+}

@@ -19,16 +19,22 @@ class Login extends Component{
         const body = {username, password};
         server.post('/login', body)
             .then(res => {
-                if (res.status === 401) {
+                if (res.errorCode !== 0) {
                     this.setState({error: true})
                 } else {
                     localStorage.setItem('username', res.data.username);
+                    localStorage.setItem('displayName', res.data.displayName);
+                    localStorage.setItem('channels', JSON.stringify(res.data.channels));
                     history.push('/chat')
                 }
             }).catch(err => {
                 console.log(err)
         })
     };
+
+    onClickCreate = (e) => {
+        history.push('/register')
+    }
 
     render() {
         return (
@@ -37,7 +43,7 @@ class Login extends Component{
                         <div className="top">
                             <img src={require('../../assets/images/logo.svg')} alt="logo" className="logo"/>
                             <div className="input-item">
-                                <div className="label">Email address</div>
+                                <div className="label">Email Address</div>
                                 <input
                                     id="username"
                                     autoComplete="off"

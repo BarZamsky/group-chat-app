@@ -7,7 +7,7 @@
   background: url('../../assets/images/background.jpg') no-repeat center;
   background-size: cover;
   .box {
-    height: 450px;
+    height: 500px;
     width: 400px;
     background-color:rgba(128,0,128,0.1);
     color: #ffffff;
@@ -18,20 +18,20 @@
     flex-flow: column;
     align-items: center;
     justify-content: space-between;
-    padding: 26px;
+    padding: 14px;
       .top {
         align-items: center;
         display: flex;
         flex-flow: column;
         width: 100%;
         .logo {
-          width: 120px;
-          height: 120px;
+          width: 100px;
+          height: 100px;
+          margin-bottom: 10px;
         }
         .input-item {
           width: 80%;
           margin-bottom: 16px;
-
           .label {
             color: #800080;
             font-size: 16px;
@@ -109,5 +109,25 @@
         }
       }
     }
+  }
+}
+
+.account-created {
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  flex-flow: column;
+  text-align: left;
+  padding: 12px;
+  .logo {
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  .label {
+    color: #800080;
+    font-size: 14px;
+    font-family: Gilroy-SemiBold;
+    line-height: 23px;
   }
 }

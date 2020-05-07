@@ -1,0 +1,26 @@
+.direct-messages {
+  .title {
+    color: #F8FBFF;
+    font-size: 15px;
+    margin-top: 22px;
+    font-family: Gilroy-Regular;
+  }
+  .MuiListItem-root {
+    padding: unset;
+    margin-top: 25px;
+    &:hover {
+      background-color: transparent;
+    }
+    .MuiSvgIcon-root {
+      margin-right: 6px;
+      color: #F8FBFF;
+    }
+  }
+
+  .list-item {
+    padding: 0 15px 0 15px;
+    &:hover {
+      background-color: rgba(139, 0, 139, 0.4);
+    }
+  }
+}

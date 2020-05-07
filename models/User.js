@@ -19,7 +19,7 @@ const AvatarSchema = new mongoose.Schema({
 const UserSchema = new Schema({
     displayName: {
         type: String,
-        required: false,
+        required: true,
     },
     username: {
         type: String,
@@ -56,11 +56,13 @@ UserSchema.methods.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.password)
 };
 
-UserSchema.methods.setDisplayName = function (displayName) {
+UserSchema.methods.setOnline = function () {
     const user = this;
-    user.displayName = displayName;
+    user.online = true;
     return user.save()
-        .then(() => {return user._doc})
+        .then(() => {
+            return user._doc;
+    });
 };
 
 UserSchema.methods.setAvatar = function (imageName, path) {

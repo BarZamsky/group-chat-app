@@ -1,0 +1,36 @@
+.channels {
+  .title {
+    color: #F8FBFF;
+    font-size: 15px;
+    font-family: Gilroy-Regular;
+  }
+  .MuiListItem-root {
+    padding: unset;
+    .MuiSvgIcon-root {
+      margin-right: 6px;
+      color: #F8FBFF;
+    }
+  }
+
+  .list-item {
+    padding: 0 15px 0 15px;
+    &:hover {
+      background-color: rgba(139, 0, 139, 0.4);
+    }
+  }
+  .add-channel {
+    font-size: 13px;
+    color: #F8FBFF;
+    font-family: Gilroy-Regular;
+    margin-top: 6px;
+    padding-left: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    .icon {
+      width: 13px;
+      height: 13px;
+      margin-right: 7px;
+    }
+  }
+}

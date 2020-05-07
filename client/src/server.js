@@ -5,7 +5,6 @@ class server {
 
     constructor (){
         this.baseurl = process.env.REACT_APP_BACKEND_SERVER
-        console.log(this.baseurl)
     }
 
     async get(uri, config) {
@@ -30,9 +29,9 @@ class server {
                 data: body,
                 withCredentials: true
             });
-            return response;
+            return response.data;
         } catch (e) {
-            return e.response;
+            server.handleError(e)
         }
     }
 
@@ -50,7 +49,7 @@ class server {
             server.handleError(e)
         }
     }
-
+    
     static handleError(err) {
         if (err.response && err.response.status === 401) {
             history.push("/login")
