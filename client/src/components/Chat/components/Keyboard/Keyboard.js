@@ -11,10 +11,9 @@ class Keyboard extends Component{
         };
     }
 
-    onSelectEmoji = (e) => {
-        console.log('here')
+    onSelectEmoji = (emoji) => {
         const {message} = this.state;
-        const newMessage = message + e.native;
+        const newMessage = `${message} ${emoji}`;
         this.setState({message: newMessage})
     };
 

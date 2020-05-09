@@ -6,6 +6,7 @@
   display: flex;
   flex-flow: column;
   justify-content: space-between;
+
   .text-area {
     width: 100%;
     min-height: 40px;
@@ -19,6 +20,7 @@
     font-size: 15px;
     font-family: Roboto;
   }
+
   .keyboard-options {
     height: 30px;
     width: 100%;
@@ -28,14 +30,33 @@
     justify-content: space-between;
     padding: 8px;
     box-sizing: border-box;
+
     .text-options {
 
     }
+
     .extra-options {
       .icon {
         cursor: pointer;
         height: 13px;
         width: 13px;
+      }
+
+      .emoji-mart-search input {
+        border-radius: 15px;
+      }
+      .emoji-mart-preview {
+        .emoji-mart-preview-emoji {
+          span {
+            height: 25px !important;
+            width: 25px !important;
+          }
+        }
+        .emoji-mart-preview-data {
+          .emoji-mart-title-label {
+            font-size: 16px;
+          }
+        }
       }
     }
   }

@@ -16,15 +16,16 @@ class EmojiPicker extends Component {
         return () => document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
-    handleClickOutside = (e) => {this.setState({ open: false });};
-
-    selectIcon = () => {
-        console.log('bar')
+    handleClickOutside = (e) => {
+        const { open } = this.state;
+        const contains = this.ref.current ? this.ref.current.contains(e.target) : false;
+        if (!contains && open) {
+            this.setState({ open: false });
+        }
     };
 
     render () {
         const {open} = this.state;
-        const {onSelectEmoji} = this.props;
 
         return (
             <div ref={this.ref}>
@@ -34,11 +35,11 @@ class EmojiPicker extends Component {
                     className="icon"
                     onClick={() => this.setState(state => ({ open: !state.open }))}/>
                 {open && <Picker
-                            ref={this.ref}
                             set='apple'
                             title="Pick your emoji…"
+                            color="#800080"
                             style={{ position: 'absolute', bottom: '50px', right: '10px', userSelect:'none' }}
-                            onClick={(e) => onSelectEmoji(e)}/> }
+                            onClick={emoji => this.props.onSelectEmoji(emoji.native)} />}
             </div>
         )
     }
