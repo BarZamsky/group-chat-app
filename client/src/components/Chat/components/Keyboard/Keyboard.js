@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import EmojiPicker from "./components/EmojiPicker"
+import TextareaAutosize from 'react-textarea-autosize';
 
 import "./Keyboard.scss"
 
@@ -22,10 +23,10 @@ class Keyboard extends Component{
         return (
             <>
                 <div className="keyboard-wrapper">
-                    <input
+                    <TextareaAutosize
                         type="text"
-                        placeholder="Message Bar"
                         value={message}
+                        placeholder="Write your message..."
                         className="text-area"
                         onChange={(e) => this.setState({message: e.target.value})}/>
                     <div className="keyboard-options">

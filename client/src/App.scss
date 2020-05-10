@@ -32,6 +32,14 @@
   src: url('./assets/fonts/roboto.woff') format('woff');
 }
 
+@font-face {
+  font-family: 'Monaco';
+  font-style: normal;
+  font-display: auto;
+  src: local('Monaco');
+  src: url('./assets/fonts/Monaco.woff') format('woff');
+}
+
 body {
   margin: 0;
   padding: 0;
