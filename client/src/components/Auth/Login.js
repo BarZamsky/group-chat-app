@@ -22,9 +22,10 @@ class Login extends Component{
                 if (res.errorCode !== 0) {
                     this.setState({error: true})
                 } else {
+                    console.log(res)
                     localStorage.setItem('username', res.data.username);
                     localStorage.setItem('displayName', res.data.displayName);
-                    localStorage.setItem('channels', JSON.stringify(res.data.channels));
+                    localStorage.setItem('token', res.data.tokens[res.data.tokens.length -1].token);
                     history.push('/chat')
                 }
             }).catch(err => {

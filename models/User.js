@@ -1,8 +1,23 @@
-const bcrypt = require('bcryptjs');
-const SALT = 10;
-const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs'),
+     jwt = require('jsonwebtoken'),
+    validator = require('validator'),
+    mongoose = require('mongoose'),
+    statusCodes = require('../utils/StatusCodes'),
+    SALT = 10;
 
 const Schema = mongoose.Schema;
+
+const UserSubSchema = new mongoose.Schema({
+    access: {
+        type: String,
+        required: true
+    },
+    token: {
+        type: String,
+        required: true
+    },
+    _id: false
+});
 
 const AvatarSchema = new mongoose.Schema({
     imageName: {
@@ -25,27 +40,130 @@ const UserSchema = new Schema({
         type: String,
         unique: true,
         required: true,
+        minlength: 1,
+        validate: {
+            validator: validator.isEmail,
+            message: '{VALUE} is not a valid email'
+        }
     },
     password: {
         type: String,
         required: true,
     },
-    channels: [
-        {
-            type: String,
-        }
-    ],
     avatar: AvatarSchema,
     online: {
         type: Boolean,
         default: false,
-    }
+    },
+    tokens: [UserSubSchema]
 });
 
 UserSchema.pre('save', function (next) {
-    this.username = this.username.toLowerCase();
-    next()
+    const user = this;
+    if (user.isModified('password')) {
+        user.password = user.generateHash(user.password);
+        next();
+    } else {
+        next();
+    }
 });
+
+UserSchema.methods.generateAuthToken = function () {
+    const user = this;
+    const access = 'auth';
+    //TODO: Replace the '' to process.env.JWT_SECRET
+    const token = jwt.sign({_id: user._id.toHexString(), access}, "SECRET_KEY").toString();
+    user.tokens.push({access, token});
+
+    return user.save()
+        .then(() => {
+            return token;
+        });
+};
+
+UserSchema.methods.removeToken = function (token) {
+    const user = this;
+    return user.update({
+        $pull: {
+            tokens: {token}
+        }
+    });
+};
+
+// TODO: get secret key from env variables
+UserSchema.statics.findByToken = async function (token) {
+    const User = this;
+    return await jwt.verify(token, "SECRET_KEY", async (err, decoded) => {
+        if(err) {
+            return {
+                status_code: statusCodes.INVALID_TOKEN,
+                message: err.message
+            }
+        }
+
+        const user = await User.findOne({
+            '_id': decoded._id,
+            'tokens.token': token,
+            'tokens.access': 'auth'
+        });
+
+        if (!user) {
+            return {
+                status_code: statusCodes.USER_NOT_FOUND,
+                data: 'User not found'
+            };
+        }
+
+        user._doc['password'] = '';
+        return {
+            errorCode: 0,
+            data: user._doc
+        }
+    });
+};
+
+UserSchema.statics.findByCredentials = function (username, password) {
+    const User = this;
+    return User.findOne({username})
+        .then(user => {
+            if (!user) {
+                return Promise.reject({
+                    errorCode: statusCodes.USER_NOT_FOUND,
+                    error: true,
+                    msg: 'User not found'
+                });
+            }
+
+            return new Promise((resolve, reject) => {
+                bcrypt.compare(password, user.password, (err, res) => {
+                    if (err) {
+                        reject({
+                            errorCode: statusCodes.GENERAL_ERROR,
+                            data: 'Login failed'
+                        })
+                    } else if (!res) {
+                        resolve({
+                            errorCode: statusCodes.GENERAL_ERROR,
+                            data: 'Wrong password'
+                        })
+                    } else
+                        resolve({
+                            errorCode: 0,
+                            data: user
+                        })
+                });
+            });
+        });
+};
+
+UserSchema.statics.getUsers = function (id) {
+    const User = this;
+    return User.find({_id: { $ne: id}}, {displayName:1})
+        .then(users => {
+            return users
+        });
+};
+
 
 UserSchema.methods.generateHash = function (password) {
     const salt = bcrypt.genSaltSync(SALT);

@@ -13,10 +13,11 @@
   outline: none;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   padding: 12px;
+  position: relative;
   .clear-icon {
-    text-align: right;
-    margin-right: 20px;
-    margin-top: 10px;
+    margin: 0;
+    position: absolute;
+    right: 18px;
     cursor: pointer;
     .MuiSvgIcon-root {
       fill: #C0C0C0;

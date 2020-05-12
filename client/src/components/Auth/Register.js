@@ -30,7 +30,6 @@ class Register extends Component {
                 } else {
                     localStorage.setItem('displayName', res.data.displayName);
                     localStorage.setItem('username', res.data.username);
-                    localStorage.setItem('channels', res.data.channels);
                     this.setState({showModal: true})
                 }
             })

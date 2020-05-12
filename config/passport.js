@@ -21,7 +21,6 @@ module.exports = (passport) => {
                     if (user) { return cb(null, false) }
                     const newUser = new User();
                     newUser.username= username.toLowerCase();
-                    newUser.channels = ['general'];
                     newUser.password = newUser.generateHash(password);
                     newUser.displayName = displayName;
                     newUser.save((err, user) => {

@@ -21,13 +21,14 @@ class server {
         }
     }
 
-    async post(uri, body) {
+    async post(uri, body, config) {
         try {
             const response = await axios({
                 method: "POST",
                 url: this.baseurl + uri,
                 data: body,
-                withCredentials: true
+                withCredentials: true,
+                ...config
             });
             return response.data;
         } catch (e) {
@@ -49,7 +50,7 @@ class server {
             server.handleError(e)
         }
     }
-    
+
     static handleError(err) {
         if (err.response && err.response.status === 401) {
             history.push("/login")
