@@ -1,28 +1,39 @@
 import React, {useState, useEffect} from "react"
+import {connect} from "react-redux"
 import AddNewChannel from "./AddNewChannel";
 import Modal from "../../../../UI/Modal/Modal"
-import {Collapse,List,ListItemIcon,ListItemText,ListItem}  from '@material-ui/core';
-import {ExpandLess,ExpandMore, Add }from '@material-ui/icons';
+import {Collapse,List,ListItemText,ListItem}  from '@material-ui/core';
+import {ExpandLess,ExpandMore, Add, Lock }from '@material-ui/icons';
+import {setChannelView} from "../../../../../actions/manageView";
 import server from "../../../../../server"
 
 import "./Channels.scss"
 
-const Channels = (props) => {
+const Channels = ({setChannelView}) => {
     const [open, setOpen] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [channels, setChannels] = useState([]);
 
     useEffect(() => {
         server.get('/channels', { headers:{'x-auth': localStorage.getItem("token")}})
-            .then((res) => {
+            .then(res => {
                 if (res.errorCode !== 0) {
                     console.log('error')
                 } else {
-                    const {channels} = res.data;
+                    const {data: channels} = res;
                     setChannels(channels);
                 }
             });
     }, []);
+
+    const onClickChannelHandler = (channel) => {
+        const data = {
+            id: channel._id,
+            name: channel.name
+        };
+
+        setChannelView(data)
+    };
 
     return (
         <>
@@ -34,8 +45,16 @@ const Channels = (props) => {
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     {channels &&  channels.length > 0 && channels.map((channel, index) => (
-                        <ListItem key={index} button className="list-item">
-                            <ListItemText><span className="title"># {channel}</span></ListItemText>
+                        <ListItem key={index}
+                                  button
+                                  className="list-item"
+                                  onClick={() => onClickChannelHandler(channel)}>
+                            <ListItemText>
+                                <span className="title">
+                                    {channel.private ? <Lock/> : '#'}
+                                    {channel.name}
+                                </span>
+                            </ListItemText>
                         </ListItem>
                     ))}
                 </List>
@@ -60,4 +79,8 @@ const Channels = (props) => {
     )
 };
 
-export default Channels
+const mapDispatchToProps = () => dispatch => ({
+    setChannelView: data => dispatch(setChannelView(data))
+});
+
+export default connect(null, mapDispatchToProps)(Channels)

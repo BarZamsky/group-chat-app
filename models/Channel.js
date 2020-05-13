@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose'),
+    errorCodes = require("../utils/ErrorCodes"),
+    Schema = mongoose.Schema;
 
 const ChannelSchema = Schema({
     name: {
@@ -35,21 +36,19 @@ ChannelSchema.statics.getChannels = function (userId) {
         })
 };
 
-ChannelSchema.statics.createChannel = function (data) {
-    const channel = this;
-    channel.name = data.name;
-    channel.users = data.users;
-    if (data.description)
-        channel.description = data.description;
-    if (data.topic)
-        channel.topic = data.topic;
-    if (data.private)
-        channel.private = data.private;
-
-    return channel.save()
-        .then(() => {
-            return channel._doc;
-        })
+ChannelSchema.statics.findChannel = async function (name) {
+    const Channel = this;
+    const channel = await Channel.findOne({'name': name});
+    if (!channel) {
+        return {
+            errorCode: errorCodes.CHANNEL_NOT_FOUND,
+            data: 'channel not found for name '+name
+        };
+    }
+    return {
+        errorCode: 0,
+        data: channel._doc
+    }
 };
 
 const Channel = mongoose.model('Channel', ChannelSchema);

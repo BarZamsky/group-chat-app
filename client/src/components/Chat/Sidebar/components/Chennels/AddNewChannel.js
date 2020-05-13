@@ -59,7 +59,6 @@ const AddNewChannel = ({onClose}) => {
                 <div className="input-item">
                     <div className="label">Name</div>
                     <input
-                        id="name"
                         placeholder="e.g rnd-department"
                         autoComplete="off"
                         onChange={(e) => {setName(e.target.value)}}/>
@@ -67,14 +66,12 @@ const AddNewChannel = ({onClose}) => {
                 <div className="input-item">
                     <div className="label">Description (optional)</div>
                     <input
-                        id="name"
                         autoComplete="off"
                         onChange={(e) => {setDescription(e.target.value)}}/>
                 </div>
                 <div className="input-item">
                     <div className="label">Topic (optional)</div>
                     <input
-                        id="name"
                         autoComplete="off"
                         onChange={(e) => {setTopic(e.target.value)}}/>
                 </div>

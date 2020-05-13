@@ -40,8 +40,30 @@
   src: url('./assets/fonts/Monaco.woff') format('woff');
 }
 
+@font-face {
+  font-family: 'OpenSans-Regular';
+  font-style: normal;
+  font-display: auto;
+  src: local('OpenSans-Regular');
+  src: url('./assets/fonts/OpenSans-Regular.woff') format('woff');
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto' ;
 }
+
+*::-webkit-scrollbar {
+  width:8px
+}
+/* background of the scrollbar except button or resizer */
+//*::-webkit-scrollbar-track {
+//  background-color:#EAEFF1
+//}
+
+*::-webkit-scrollbar-thumb {
+  background-color:#C0C0C0;
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-button {display:none}

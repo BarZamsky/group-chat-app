@@ -1,8 +1,8 @@
 const bcrypt = require('bcryptjs'),
-     jwt = require('jsonwebtoken'),
+    jwt = require('jsonwebtoken'),
     validator = require('validator'),
     mongoose = require('mongoose'),
-    statusCodes = require('../utils/StatusCodes'),
+    errorCodes = require('../utils/ErrorCodes'),
     SALT = 10;
 
 const Schema = mongoose.Schema;
@@ -96,7 +96,7 @@ UserSchema.statics.findByToken = async function (token) {
     return await jwt.verify(token, "SECRET_KEY", async (err, decoded) => {
         if(err) {
             return {
-                status_code: statusCodes.INVALID_TOKEN,
+                errorCode: errorCodes.INVALID_TOKEN,
                 message: err.message
             }
         }
@@ -109,7 +109,7 @@ UserSchema.statics.findByToken = async function (token) {
 
         if (!user) {
             return {
-                status_code: statusCodes.USER_NOT_FOUND,
+                errorCode: errorCodes.USER_NOT_FOUND,
                 data: 'User not found'
             };
         }
@@ -128,7 +128,7 @@ UserSchema.statics.findByCredentials = function (username, password) {
         .then(user => {
             if (!user) {
                 return Promise.reject({
-                    errorCode: statusCodes.USER_NOT_FOUND,
+                    errorCode: errorCodes.USER_NOT_FOUND,
                     error: true,
                     msg: 'User not found'
                 });
@@ -138,12 +138,12 @@ UserSchema.statics.findByCredentials = function (username, password) {
                 bcrypt.compare(password, user.password, (err, res) => {
                     if (err) {
                         reject({
-                            errorCode: statusCodes.GENERAL_ERROR,
+                            errorCode: errorCodes.GENERAL_ERROR,
                             data: 'Login failed'
                         })
                     } else if (!res) {
                         resolve({
-                            errorCode: statusCodes.GENERAL_ERROR,
+                            errorCode: errorCodes.GENERAL_ERROR,
                             data: 'Wrong password'
                         })
                     } else

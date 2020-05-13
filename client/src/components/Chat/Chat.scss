@@ -6,15 +6,11 @@
   .chat-header {
     display: flex;
     align-items: center;
-    height: 50px;
+    justify-content: space-between;
+    height: 60px;
     box-sizing: border-box;
-    background-color: rgba(216,191,216,0.4);
-    border-bottom: 1px solid rgb(216,191,216);
-    .name {
-      margin-left: 23px;
-      font-size: 16px;
-      font-family: Gilroy-Bold;
-    }
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #B8B8B8;
   }
   .chat-body {
     height: calc(100vh - 70px);

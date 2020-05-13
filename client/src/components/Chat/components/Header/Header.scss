@@ -1,0 +1,46 @@
+.channel-header {
+  padding: 8px 23px;
+  box-sizing: border-box;
+  .data {
+    .name {
+      display: flex;
+      align-items: center;
+      font-family: Gilroy-SemiBold;
+      font-size: 16px;
+      .MuiSvgIcon-root {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+      }
+    }
+    .channel-info {
+      display: flex;
+      margin-top: 3px;
+      font-size: 12px;
+      font-family: Roboto;
+      color: #808080;
+      .members {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .MuiSvgIcon-root {
+          width: 16px;
+          height: 16px;
+        }
+        &::after {
+          content: '';
+          height: 4px;
+          width: 4px;
+          border-radius: 50%;
+          background-color: #808080;
+          display: inline-block;
+          margin-left: 3px;
+          cursor: unset;
+        }
+      }
+      .topic {
+        margin-left: 3px;
+      }
+    }
+  }
+}

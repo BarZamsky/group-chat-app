@@ -2,7 +2,7 @@ const express = require('express'),
     router = express.Router(),
     {User} = require('../../models/User'),
     authenticate =  require('../../middleware/authenticate'),
-    statusCodes = require('../../utils/StatusCodes'),
+    statusCodes = require('../../utils/ErrorCodes'),
     {createErrorResponse, createResponse} = require('../../utils/ServerResponse'),
     logger = require("../../middleware/logger");
 

@@ -1,6 +1,7 @@
 import React from "react"
+import { connect } from 'react-redux';
 
-const messages = () => {
+const messages = ({manageView}) => {
     return (
         <div className="messages-wrapper">
             messages container
@@ -8,4 +9,8 @@ const messages = () => {
     )
 };
 
-export default messages
+const mapStateToProps = ({ manageView }) => ({
+    manageView
+});
+
+export default connect(mapStateToProps)(messages)

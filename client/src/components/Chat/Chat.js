@@ -1,24 +1,32 @@
 import React from "react"
+import {connect} from "react-redux"
 import Sidebar from "./Sidebar/Sidebar"
-import Header from "./components/Header"
+import Header from "./components/Header/Header"
 import Messages from "./components/Messages/Messages"
 import Keyboard from "./components/Keyboard/Keyboard"
 
 import "./Chat.scss"
 
-const chat = (props) => {
+const chat = ({manageView}) => {
     return (
         <>
             <Sidebar/>
             <div className="chat_wrapper">
+                {manageView.id !== null &&
+                <>
                 <Header/>
                 <div className="chat-body">
                     <Messages/>
                     <Keyboard/>
                 </div>
+                </> }
             </div>
         </>
     )
 };
 
-export default chat;
+const mapStateToProps = ({ manageView }) => ({
+    manageView
+});
+
+export default connect(mapStateToProps)(chat);

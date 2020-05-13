@@ -3,7 +3,7 @@ const express = require('express'),
     // passport = require('passport'),
     _ = require('lodash'),
     {User} = require('../../models/User'),
-    statusCodes = require('../../utils/StatusCodes'),
+    statusCodes = require('../../utils/ErrorCodes'),
     {createErrorResponse, createResponse} = require('../../utils/ServerResponse'),
     logger = require("../../middleware/logger");
 
