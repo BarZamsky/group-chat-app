@@ -12,7 +12,7 @@ const chat = ({manageView}) => {
         <>
             <Sidebar/>
             <div className="chat_wrapper">
-                {manageView.id !== null &&
+                {localStorage.getItem("channel_id") !== null &&
                 <>
                 <Header/>
                 <div className="chat-body">

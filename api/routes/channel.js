@@ -3,6 +3,7 @@ const express = require('express'),
     _ = require('lodash'),
     authenticate =  require('../../middleware/authenticate'),
     {Channel} = require('../../models/Channel'),
+    {User} = require('../../models/User'),
     errorCodes = require('../../utils/ErrorCodes'),
     {createResponse, createErrorResponse} = require('../../utils/ServerResponse'),
     logger = require("../../middleware/logger");
@@ -42,6 +43,33 @@ router.get('/:name', authenticate, async (req, res) => {
         }
 
         res.send(createResponse(0, response.data));
+    } catch (e) {
+        logger.log('error', e.messages);
+        res.status(200).send(createErrorResponse(errorCodes.GENERAL_ERROR, e.message));
+    }
+});
+
+//get channel's members
+router.get('/:name/members', authenticate, async (req, res) => {
+    if (!req['user']) {
+        res.status(401).send()
+    }
+
+    try {
+        let response = await Channel.getMembersList(req.params.name);
+        if (response.errorCode !== 0) {
+            res.send(createResponse(response.errorCode, response.data));
+            return
+        }
+
+        const channelUsers = response.data;
+        const members = [];
+        for (const id of channelUsers) {
+            const user = await User.findById(id);
+            members.push(user);
+        }
+
+        res.send(createResponse(0, members));
     } catch (e) {
         logger.log('error', e.messages);
         res.status(200).send(createErrorResponse(errorCodes.GENERAL_ERROR, e.message));

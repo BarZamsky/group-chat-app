@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux"
-import server from "../../../../../server"
+import server from "../../../../../../server"
 import {Lock, PersonOutlined} from "@material-ui/icons";
+import ChannelDetails from "./Details/ChannelDetails";
 
-import "../Header.scss"
+import "./ChannelHeader.scss"
 
 const ChannelHeader =  ({manageView}) => {
-    const [channel, setChannel] = useState({});
+    const [channel, setChannel] = useState(null);
 
     useEffect(() => {
-        server.get(`/channels/${manageView.name}`, { headers:{'x-auth': localStorage.getItem("token")}})
+        let channelName;
+        if (manageView.name !== null)
+            channelName = manageView.name;
+        else
+            channelName = localStorage.getItem("channel_name");
+        server.get(`/channels/${channelName}`, { headers:{'x-auth': localStorage.getItem("token")}})
             .then(res => {
                 if (res.errorCode !== 0) {
                     console.log('error')
@@ -21,6 +27,7 @@ const ChannelHeader =  ({manageView}) => {
     }, []);
 
     return (
+        channel &&
         <div className="channel-header">
             <div className="data">
                 <div className="name">{channel.private ? <Lock/> : '#'}  {channel.name}</div>
@@ -30,6 +37,7 @@ const ChannelHeader =  ({manageView}) => {
                 </div>
             </div>
             <div className="details">
+                <ChannelDetails channel={channel}/>
             </div>
         </div>
     )

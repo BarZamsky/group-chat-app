@@ -32,9 +32,12 @@ router.post('/login', async (req, res) => {
             res.send(createErrorResponse(response.errorCode, response.data));
             return;
         }
+
         let user = response.data;
         const token = await user.generateAuthToken();
+        await user.setOnline();
         user._doc['password'] = null;
+        user._doc['online'] = true;
         res.header('x-auth', token)
             .send(createResponse(0, user._doc));
     } catch (e) {

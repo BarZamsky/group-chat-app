@@ -1,0 +1,109 @@
+.drawer-wrapper {
+  width: 370px;
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    padding: 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #D3D3D3;
+    align-items: center;
+    .text {
+      font-family: Gilroy-SemiBold;
+      font-size: 15px;
+      .name {
+        color: #808080;
+        display: flex;
+        align-items: center;
+        margin-top: 2px;
+        font-size: 13px;
+        font-family: OpenSans-Regular;
+        .MuiSvgIcon-root {
+          fill: #808080;
+          width: 15px;
+          height: 15px;
+          margin-right: 3px;
+        }
+      }
+    }
+    .close {
+      cursor: pointer;
+      margin-right: 5px;
+      .MuiSvgIcon-root {
+        fill: #C0C0C0;
+        &:hover {
+          fill: #232f3e;
+        }
+      }
+    }
+  }
+  .details-list {
+    .title {
+      font-family: OpenSans-Regular;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .MuiListItem-root {
+      //border-bottom: 1px solid #D3D3D3;
+      height: 56px;
+      .MuiSvgIcon-root {
+        margin-right: 6px;
+        width: 16px;
+        height: 16px;
+      }
+      &:hover {
+        background-color: rgba(216,191,216,0.2);
+      }
+      &.Mui-selected {
+        background-color: rgba(216,191,216,0.2);
+      }
+    }
+
+    .members-list {
+      border: none;
+      cursor: unset;
+      height: unset;
+      &:hover {
+        background: none;
+      }
+      .user-data {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        font-family: Roboto;
+        font-weight: bold;
+        cursor: pointer;
+        .icon {
+          height: 20px;
+          width: 20px;
+          border-radius:4px;
+          font-size:12px;
+          margin-right: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #ffffff;
+          .MuiSvgIcon-root {
+            width: 19px;
+            height: 19px;
+            margin: unset;
+          }
+        }
+        .online {
+          margin-left: 6px;
+          display: inline-block;
+          content: '';
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          border: 2px solid #D3D3D3;
+          &.true {
+            border: 2px solid #3CB371;
+            background-color: #3CB371;
+          }
+        }
+      }
+    }
+  }
+}

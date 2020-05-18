@@ -51,6 +51,22 @@ ChannelSchema.statics.findChannel = async function (name) {
     }
 };
 
+ChannelSchema.statics.getMembersList = async function (name) {
+    const Channel = this;
+    const channel = await Channel.findOne({'name': name});
+    if (!channel) {
+        return {
+            errorCode: errorCodes.CHANNEL_NOT_FOUND,
+            data: 'channel not found for name '+name
+        };
+    }
+
+    return {
+        errorCode: 0,
+        data: channel._doc.users
+    }
+};
+
 const Channel = mongoose.model('Channel', ChannelSchema);
 
 module.exports = {Channel};

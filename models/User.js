@@ -164,6 +164,13 @@ UserSchema.statics.getUsers = function (id) {
         });
 };
 
+UserSchema.statics.findById = function (id) {
+    const User = this;
+    return User.findOne({_id: id}, {displayName:1, online: 1})
+        .then(user => {
+            return user
+        });
+};
 
 UserSchema.methods.generateHash = function (password) {
     const salt = bcrypt.genSaltSync(SALT);

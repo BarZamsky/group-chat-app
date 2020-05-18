@@ -3,7 +3,8 @@ import { Modal, Backdrop } from '@material-ui/core';
 import {
     bool, element, func
 } from 'prop-types';
-import {clearIcon} from "../../Utils/Icons";
+import {Clear} from '@material-ui/icons';
+
 import "./Modal.scss"
 
 const modal = ({showModal, onClose, body}) => (
@@ -24,7 +25,7 @@ const modal = ({showModal, onClose, body}) => (
         }}
     >
         <div className="paper">
-            <div className="clear-icon" onClick={onClose}>{clearIcon}</div>
+            <div className="clear-icon" onClick={onClose}>{<Clear/>}</div>
             {body}
         </div>
     </Modal>

@@ -32,7 +32,9 @@ const Channels = ({setChannelView}) => {
             name: channel.name
         };
 
-        setChannelView(data)
+        setChannelView(data);
+        localStorage.setItem("channel_id", channel._id);
+        localStorage.setItem("channel_name", channel.name);
     };
 
     return (
