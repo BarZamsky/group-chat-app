@@ -1,8 +1,9 @@
 const mongoose = require('mongoose'),
-    errorCodes = require("../utils/ErrorCodes"),
-    Schema = mongoose.Schema;
+    errorCodes = require("../utils/ErrorCodes");
 
-const ChannelSchema = Schema({
+const Schema = mongoose.Schema;
+
+const ChannelSchema = new Schema({
     name: {
         type: String,
         unique: true,
@@ -28,6 +29,16 @@ ChannelSchema.pre('save', function (next) {
     next()
 });
 
+
+ChannelSchema.methods.addUsers = function (users) {
+    const channel = this;
+    channel.users.push(users);
+    return channel.save()
+        .then(() => {
+            return channel._doc;
+        });
+};
+
 ChannelSchema.statics.getChannels = function (userId) {
     const channel = this;
     return channel.find({users: [userId] })
@@ -47,7 +58,7 @@ ChannelSchema.statics.findChannel = async function (name) {
     }
     return {
         errorCode: 0,
-        data: channel._doc
+        data: channel
     }
 };
 

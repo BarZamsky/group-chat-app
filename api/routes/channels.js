@@ -42,7 +42,7 @@ router.get('/:name', authenticate, async (req, res) => {
             return
         }
 
-        res.send(createResponse(0, response.data));
+        res.send(createResponse(0, response.data._doc));
     } catch (e) {
         logger.log('error', e.messages);
         res.status(200).send(createErrorResponse(errorCodes.GENERAL_ERROR, e.message));
@@ -88,6 +88,28 @@ router.post('/', authenticate, async (req, res) => {
 
         const channel = new Channel(body);
         await channel.save();
+        res.send(createResponse(0, channel._doc));
+    } catch (e) {
+        logger.log('error', e.message);
+        res.status(200).send(createErrorResponse(errorCodes.FAILED_CREATE_CHANNEL, e.message));
+    }
+});
+
+router.post('/add', authenticate, async (req, res) => {
+    if (!req['user']) {
+        res.status(401).send()
+    }
+
+    try {
+        const body = _.pick(req.body, ['users', 'channelName']);
+        const response = await Channel.findChannel(body['channelName']);
+        if (response.errorCode !== 0) {
+            res.send(createResponse(response.errorCode, response.data));
+            return
+        }
+
+        let channel = response.data;
+        channel = await channel.addUsers(body['users']);
         res.send(createResponse(0, channel._doc));
     } catch (e) {
         logger.log('error', e.message);

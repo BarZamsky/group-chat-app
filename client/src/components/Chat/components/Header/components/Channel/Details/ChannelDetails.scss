@@ -39,6 +39,7 @@
     }
   }
   .details-list {
+    user-select: none;
     .title {
       font-family: OpenSans-Regular;
       font-size: 16px;
@@ -145,14 +146,96 @@
   }
   .users-drop-down {
     .users-select {
-      margin: 20px 0 10px 15px;
-      width: 94%;
-      height: 50px;
-      border-radius: 4px;
-      border: 1px solid #800080;
-      &:focus {
-        border: 2px solid #800080;
-        box-shadow: 0 0 5px 0 #800080;
+      position: relative;
+      user-select: none;
+      .select-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 12px;
+        box-sizing: border-box;
+        margin: 15px 0 10px 15px;
+        width: 94%;
+        border-bottom: 1px solid #800080;
+        .default-text {
+          color: #666666;
+          font-family: OpenSans-Regular;
+        }
+        .selected {
+          display: flex;
+          li {
+            list-style: none;
+            font-size: 14px;
+            color: #666666;
+            font-family: OpenSans-Regular;
+            display: inline;
+            user-select: none;
+            &:after {
+              content: ', ';
+            }
+            &:last-child {
+              &::after {
+                content: none;
+              }
+            }
+          }
+        }
+        .MuiSvgIcon-root {
+          transform: rotate(90deg);
+          color: #800080;
+          cursor: pointer;
+          width: 20px;
+          height: 20px;
+          margin-top: 4px;
+        }
+      }
+      .select-content {
+        font-family: OpenSans-Regular;
+        position: absolute;
+        display: flex;
+        top: 52px;
+        left: 14px;
+        width: 94%;
+        background-color: #fff;
+        box-shadow: 0 4px 4px rgba(0, 31, 67, 0.2);
+        border: 1px solid rgba(216,191,216,0.7);
+        border-radius: 5px;
+        z-index: 999;
+        .items-container {
+          max-height: 275px;
+          overflow: auto;
+          padding: 3px 0;
+          width: 100%;
+          .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            cursor: pointer;
+            &:hover {
+              background-color: rgba(216,191,216,0.2);
+            }
+            .text {
+              font-family: OpenSans-Regular;
+              font-size: 14px;
+              color: #666666;
+            }
+            .icons {
+              display: flex;
+              .clear {
+                margin-left: 5px;
+                .MuiSvgIcon-root {
+                  transform: unset;
+                  fill: #B8B8B8;
+                  cursor: pointer;
+                }
+              }
+            }
+            .MuiSvgIcon-root {
+              transform: unset;
+            }
+          }
+        }
       }
     }
   }
