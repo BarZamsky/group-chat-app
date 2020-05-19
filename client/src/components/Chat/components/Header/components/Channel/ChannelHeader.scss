@@ -10,7 +10,7 @@
       display: flex;
       align-items: center;
       font-family: Gilroy-SemiBold;
-      font-size: 16px;
+      font-size: 17px;
       .MuiSvgIcon-root {
         width: 15px;
         height: 15px;
@@ -20,7 +20,7 @@
     .channel-info {
       display: flex;
       margin-top: 3px;
-      font-size: 12px;
+      font-size: 14px;
       font-family: Roboto;
       color: #808080;
       .members {
@@ -54,19 +54,36 @@
       font-family: Gilroy-SemiBold;
       color: #B8B8B8;
       outline: none;
-      height: 30px;
+      height: 35px;
       border-radius: 4px;
       cursor: pointer;
       border: none;
       background: none;
+      font-size: 15px;
       .MuiSvgIcon-root {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         margin-right: 5px;
       }
       &:hover {
         color: #666666;
         background: rgba(216,191,216,0.2);
+      }
+    }
+  }
+}
+
+@media (max-width: 1652px) {
+  .channel-header {
+    .data {
+      .name {
+        font-size: 16px;
+      }
+    }
+    .details {
+      .show-more {
+        height: 30px;
+        font-size: 14px;
       }
     }
   }

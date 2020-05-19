@@ -4,7 +4,7 @@ import history from "./history"
 class server {
 
     constructor (){
-        this.baseurl = process.env.REACT_APP_BACKEND_SERVER
+        this.baseurl = 'http://localhost:5000/api'
     }
 
     async get(uri, config) {
