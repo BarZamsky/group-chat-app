@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PubSub from "pubsub-js";
 import Drawer from '@material-ui/core/Drawer';
 import Members from "./Members";
 import {InfoOutlined, Clear, Lock} from "@material-ui/icons";
@@ -16,15 +17,26 @@ class ChannelDetails extends Component{
         isFetching: false
     };
 
-    componentDidMount() {
+    componentWillMount(){
+        this.pubsub_event = PubSub.subscribe('UPDATE_MEMBERS_LIST', () => {
+            this.fetchMembers();
+        });
+    }
+
+    componentDidMount() { this.fetchMembers() }
+
+    componentWillUnmount() { PubSub.unsubscribe(this.pubsub_event); }
+
+    fetchMembers = () => {
         const {channel} = this.state;
         this.setState({isFetching: true});
-        server.get(`/channels/${channel.name}/members` ,{ headers:{'x-auth': localStorage.getItem("token")}})
-            .then(response => {
-                if (response.errorCode === 0)
+        server.get(`/channels/${channel.name}/members` ,{
+            headers:{'x-auth': localStorage.getItem("token")}
+        }).then(response => {
+            if (response.errorCode === 0)
                 this.setState({members: response.data, isFetching: false})
-            })
-    }
+        })
+    };
 
     toggleDrawer = () => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

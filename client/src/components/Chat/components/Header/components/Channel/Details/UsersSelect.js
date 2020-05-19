@@ -3,7 +3,7 @@ import {arrayOf, shape, func, string} from 'prop-types';
 import {ArrowForwardIos,DoneRounded, CloseRounded} from '@material-ui/icons';
 
 const UsersSelect = ({
-    users, onChange, selected, removeFromList
+    members, users, onChange, selected, removeFromList
 }) => {
     const [open, setOpen] = useState(false);
     return (
@@ -32,7 +32,8 @@ const UsersSelect = ({
                         {users.map(user => (
                             <div key={user._id} className="item" role="tabpanel" onClick={e => onChange(e, user)}>
                                 <div className="text">{user.displayName}</div>
-                                {selected.filter(selectedItem => selectedItem._id === user._id).length !== 0 ? (
+                                {selected.filter(selectedItem => selectedItem._id === user._id).length !== 0  ||
+                                members.filter(member => member._id === user._id).length !== 0 ? (
                                     <div className="icons">
                                         <DoneRounded/>
                                         <div className="clear" onClick={e => removeFromList(e, user)}> <CloseRounded/></div>
