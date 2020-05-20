@@ -23,6 +23,10 @@ const ChannelSchema = new Schema({
     },
     users: {
         type: [Schema.Types.ObjectId]
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
     }
 });
 

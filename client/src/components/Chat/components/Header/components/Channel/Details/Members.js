@@ -75,9 +75,10 @@ class Members extends Component {
             this.setState({
                 showModal: false,
                 selected: []
+            }, () => {
+                PubSub.publish('UPDATE_MEMBERS_TOTAL');
+                PubSub.publish('UPDATE_MEMBERS_LIST');
             });
-            PubSub.publish('UPDATE_MEMBERS_TOTAL');
-            PubSub.publish('UPDATE_MEMBERS_LIST');
         })
     };
 

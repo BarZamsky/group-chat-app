@@ -53,7 +53,7 @@ const Channels = ({setChannelView}) => {
                                   onClick={() => onClickChannelHandler(channel)}>
                             <ListItemText>
                                 <span className="title">
-                                    {channel.private ? <Lock/> : '#'}
+                                    {channel.private ? <Lock/> : '# '}
                                     {channel.name}
                                 </span>
                             </ListItemText>
