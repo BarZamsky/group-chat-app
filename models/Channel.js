@@ -1,5 +1,7 @@
 const mongoose = require('mongoose'),
-    errorCodes = require("../utils/ErrorCodes");
+    errorCodes = require("../utils/ErrorCodes"),
+    logger = require('../middleware/logger'),
+    ObjectID = require('mongodb').ObjectID;
 
 const Schema = mongoose.Schema;
 
@@ -41,10 +43,11 @@ ChannelSchema.methods.addUsers = function (users) {
 
 ChannelSchema.statics.getChannels = function (userId) {
     const channel = this;
-    return channel.find({users: [userId] })
+    return channel.find({users: {$elemMatch:{$eq: userId }}})
         .then(channel => {
             return channel;
         })
+        .catch(err => logger.log('error', err.message))
 };
 
 ChannelSchema.statics.findChannel = async function (name) {
