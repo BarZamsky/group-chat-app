@@ -55,6 +55,9 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    messages: {
+        type: [Schema.Types.ObjectId]
+    },
     tokens: [UserSubSchema]
 });
 
@@ -158,7 +161,7 @@ UserSchema.statics.findByCredentials = function (username, password) {
 
 UserSchema.statics.getUsers = function (id) {
     const User = this;
-    return User.find({_id: { $ne: id}}, {displayName:1})
+    return User.find({_id: { $ne: id}}, {displayName:1, username: 1})
         .then(users => {
             return users
         });
@@ -167,6 +170,14 @@ UserSchema.statics.getUsers = function (id) {
 UserSchema.statics.findById = function (id) {
     const User = this;
     return User.findOne({_id: id}, {displayName:1, online: 1})
+        .then(user => {
+            return user
+        });
+};
+
+UserSchema.statics.getUser = function (id) {
+    const User = this;
+    return User.findOne({_id: id})
         .then(user => {
             return user
         });
@@ -188,6 +199,15 @@ UserSchema.methods.setOnline = function () {
         .then(() => {
             return user._doc;
     });
+};
+
+UserSchema.methods.addMessage = function (userId) {
+    const user = this;
+    user.messages.push(userId);
+    return user.save()
+        .then(() => {
+            return user._doc;
+        });
 };
 
 UserSchema.methods.setAvatar = function (imageName, path) {

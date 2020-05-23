@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 const messageSchema = Schema({
     sentTo: {
-        type: ObjectId,
+        type: Schema.Types.ObjectId,
         required: false,
         ref: 'User'
     },
     sender: {
-        type: ObjectId,
+        type: Schema.Types.ObjectId,
         required: true,
         ref: 'User'
     },
@@ -17,12 +17,16 @@ const messageSchema = Schema({
         type: Date,
         default: Date.now,
     },
+    type: {
+        type: String,
+        required: true
+    },
     text: {
         type: String,
         required: true,
     },
     channel: {
-        type: ObjectId,
+        type: Schema.Types.ObjectId,
         required: false,
         ref: 'Channel'
     },

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {arrayOf, shape, func, string} from 'prop-types';
-import {ArrowForwardIos,DoneRounded, CloseRounded} from '@material-ui/icons';
+import {arrayOf, func, shape} from 'prop-types';
+import {ArrowForwardIos, CloseRounded, DoneRounded} from '@material-ui/icons';
 
 const UsersSelect = ({
     members, users, onChange, selected, removeFromList

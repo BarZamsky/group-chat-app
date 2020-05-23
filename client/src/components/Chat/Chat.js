@@ -8,11 +8,13 @@ import Keyboard from "./components/Keyboard/Keyboard"
 import "./Chat.scss"
 
 const chat = ({manageView}) => {
+    const show = (manageView.type === 'channel' || localStorage.getItem("type") === 'channel') && localStorage.getItem("id") !== null;
+
     return (
         <>
             <Sidebar/>
             <div className="chat_wrapper">
-                {localStorage.getItem("channel_id") !== null &&
+                {show &&
                 <>
                 <Header/>
                 <div className="chat-body">

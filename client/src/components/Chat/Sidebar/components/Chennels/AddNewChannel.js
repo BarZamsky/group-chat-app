@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
+import PubSub from 'pubsub-js';
 import Switch from '@material-ui/core/Switch';
 import server from "../../../../../server"
 import {withStyles} from "@material-ui/core";
@@ -18,13 +19,6 @@ const PurpleSwitch = withStyles({
     track: {},
 })(Switch);
 
-/*TODO:
-   1. get all users
-   2. multi dropdown
-   3. create channel
-   4. close popup
-   5. call socket and update channels list
-* */
 const AddNewChannel = ({onClose}) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -45,7 +39,8 @@ const AddNewChannel = ({onClose}) => {
             if (res.errorCode !== 0) {
                 console.log('error')
             } else {
-                onClose()
+                onClose();
+                PubSub.publish('UPDATE_CHANNELS');
             }
         })
     };

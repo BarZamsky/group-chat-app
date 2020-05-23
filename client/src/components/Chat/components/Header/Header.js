@@ -3,11 +3,13 @@ import {connect} from "react-redux"
 import ChannelHeader from "./components/Channel/ChannelHeader";
 
 const header = ({manageView}) => {
-    let type = manageView.type ? manageView.type : localStorage.getItem("channel_id") ? 'channel' : 'private';
-    let id = localStorage.getItem("channel_id")
+    let type = manageView.type ? manageView.type : localStorage.getItem("type");
+    let id = localStorage.getItem("id");
+
+    let name = manageView.name ? manageView.name : localStorage.getItem("name");
     return (
         <div className="chat-header">
-            {id !== null && type === 'channel' && <ChannelHeader/>}
+            {id !== null && type === 'channel' && <ChannelHeader channelName={name}/>}
         </div>
     )
 };

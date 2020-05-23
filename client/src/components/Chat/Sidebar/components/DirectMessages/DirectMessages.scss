@@ -2,12 +2,11 @@
   .title {
     color: #DCDCDC;
     font-size: 15px;
-    margin-top: 22px;
-    font-family: Gilroy-Regular;
+    font-family: OpenSans-Regular;
   }
   .MuiListItem-root {
     padding: unset;
-    margin-top: 25px;
+    margin-top: 30px;
     &:hover {
       background-color: transparent;
     }
@@ -18,9 +17,143 @@
   }
 
   .list-item {
+    height: 32px;
+    margin-top: unset;
     padding: 0 15px 0 15px;
+    display: flex;
+    align-items: center;
     &:hover {
       background-color: rgba(139, 0, 139, 0.4);
+    }
+    .online {
+      margin-right: 8px;
+      display: inline-block;
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      border: 2px solid #808080;
+      &.true {
+        border: 2px solid #3CB371;
+        background-color: #3CB371;
+      }
+    }
+  }
+
+  .start-message {
+    font-size: 14px;
+    color: #DCDCDC;
+    font-family: OpenSans-Regular;
+    margin-top: 6px;
+    padding-left: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    .icon {
+      width: 13px;
+      height: 13px;
+      margin-right: 7px;
+    }
+  }
+}
+
+.new-message-popup {
+  width: 550px;
+  height: 500px;
+  overflow-x: hidden;
+  padding: 12px 32px;
+  box-sizing: border-box;
+  background-color: #F8FBFF;
+  border-radius: 4px;
+  .title {
+    font-family: Gilroy-Bold;
+    font-size: 28px;
+    color: #232f3e;
+  }
+  .sub-title {
+    font-family: OpenSans-Regular;
+    font-size: 16px;
+    color: #808080;
+    margin-top: 15px;
+    line-height: 21px;
+  }
+  input {
+    outline: none;
+    width: 98%;
+    height: 45px;
+    border-radius: 4px;
+    padding: 12px;
+    box-sizing: border-box;
+    color: #232f3e;
+    font-size: 14px;
+    font-family: OpenSans-Regular;
+    border: 1px solid #666666;
+    margin-top: 20px;
+    &:focus {
+      border: 2px solid #800080;
+      box-shadow: 0 0 5px 0 #800080;
+    }
+  }
+  .search-results {
+    .loader {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      .MuiCircularProgress-colorPrimary {
+        color: #800080;
+      }
+    }
+    .users-list {
+      margin-top: 20px;
+      max-height: 300px;
+      overflow: scroll;
+      overflow-x: hidden;
+      padding-right: 5px;
+      .user {
+        height: 60px;
+        border-bottom: 1px solid #C0C0C0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        font-family: OpenSans-Regular;
+        justify-content: space-between;
+        &:first-child {
+          border-top: 1px solid #C0C0C0;
+        }
+        .info {
+          padding: 0 12px;
+          box-sizing: border-box;
+          display: flex;
+          .icon {
+            background-color: rgba(216,191,216,0.3);
+            height: 40px;
+            width: 50px;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            img {
+              padding-top: 5px;
+              max-width:100%;
+              max-height: 35px;
+              svg {
+                stroke: purple;
+              }
+            }
+          }
+          .data {
+            .name {
+              font-weight: bold;
+              font-size: 15px;
+            }
+            .email {
+              font-size: 14px;
+            }
+          }
+        }
+        &:hover {
+          background-color: rgba(220,220,220,0.2);
+        }
+      }
     }
   }
 }

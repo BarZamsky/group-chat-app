@@ -27,10 +27,17 @@ class ChannelDetails extends Component{
 
     componentWillUnmount() { PubSub.unsubscribe(this.pubsub_event); }
 
+    componentWillReceiveProps(props) {
+        const { channel } = props;
+        this.setState({channel});
+        this.fetchMembers();
+    }
+
     fetchMembers = () => {
         const {channel} = this.state;
         this.setState({isFetching: true});
-        server.get(`/channels/${channel.name}/members` ,{
+        const channelName = channel && channel.name ? channel.name : localStorage.getItem("name");
+        server.get(`/channels/${channelName}/members` ,{
             headers:{'x-auth': localStorage.getItem("token")}
         }).then(response => {
             if (response.errorCode === 0)
